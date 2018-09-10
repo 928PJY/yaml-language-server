@@ -157,8 +157,9 @@ let schemaRequestService = (uri: string): Thenable<string> => {
 			}
 		});
 	}
-	let headers = { 'Accept-Encoding': 'gzip, deflate' };
+	let headers = { 'Accept-Encoding': 'gzip, deflate', 'Cache-control': 'max-age=10' };
 	return xhr({ url: uri, followRedirects: 5, headers }).then(response => {
+		console.log(response.responseText);
 		return response.responseText;
 	}, (error: XHRResponse) => {
 		return Promise.reject(error.responseText || getErrorStatusDescription(error.status) || error.toString());
